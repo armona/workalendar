@@ -30,11 +30,11 @@ class Israel(Calendar):
             day = hebrew_date.day
 
             if month == 7:
-                if day in {1, 2, 3}:
+                if day in {1, 2}:
                     days.append((current_date, "Rosh Hashana"))
                 elif day == 10:
                     days.append((current_date, "Yom Kippur"))
-                elif day in range(15, 22):
+                elif day == 15:
                     days.append((current_date, "Sukkot"))
                 elif day == 22:
                     days.append((current_date, "Shmini Atzeres"))
