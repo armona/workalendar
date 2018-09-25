@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 from datetime import date
 
 from ..core import ChineseNewYearCalendar, WesternCalendar
@@ -8,7 +7,7 @@ from ..core import IslamicMixin
 from ..registry import iso_register
 
 
-@iso_register('MY')
+@iso_register("MY")
 class Malaysia(ChineseNewYearCalendar, WesternCalendar, IslamicMixin):
     "Malaysia"
     include_nuzul_al_quran = True
@@ -37,9 +36,11 @@ class Malaysia(ChineseNewYearCalendar, WesternCalendar, IslamicMixin):
         2015: date(2015, 11, 10),
         2016: date(2016, 10, 29),
         2017: date(2017, 10, 18),
-        2018: date(2018, 11, 7),   # This might change
+        2018: date(2018, 11, 7),  # This might change
         2019: date(2019, 10, 27),  # This might change
-        2020: date(2020, 11, 14),  # This might change
+        2020: date(2020, 11, 14),  # This might change,
+        2021: date(2021, 11, 4),
+        2022: date(2022, 10, 24),
     }
 
     MSIA_THAIPUSAM = {
@@ -51,7 +52,10 @@ class Malaysia(ChineseNewYearCalendar, WesternCalendar, IslamicMixin):
         2015: date(2015, 2, 3),
         2016: date(2016, 1, 25),
         2017: date(2017, 2, 9),
-        2018: date(2018, 1, 31),   # This might change
+        2018: date(2018, 1, 31),  # This might change
+        2019: date(2019, 1, 21),
+        2020: date(2020, 2, 8),
+        2021: date(2021, 1, 28),
     }
     chinese_new_year_label = "First Day of Lunar New Year"
     include_chinese_second_day = True
@@ -65,20 +69,18 @@ class Malaysia(ChineseNewYearCalendar, WesternCalendar, IslamicMixin):
         days = super(Malaysia, self).get_variable_days(year)
 
         # Vesak Day
-        days.append(
-            (ChineseNewYearCalendar.lunar(year, 4, 15), "Vesak Day"),
-        )
+        days.append((ChineseNewYearCalendar.lunar(year, 4, 15), "Vesak Day"))
 
         # Add in Deepavali and Thaipusam (hardcoded dates, so no need to shift)
         msia_deepavali = self.MSIA_DEEPAVALI.get(year)
         if not msia_deepavali:
-            mdmsg = 'Missing date for Malaysia Deepavali for year: %s' % year
+            mdmsg = "Missing date for Malaysia Deepavali for year: %s" % year
             raise KeyError(mdmsg)
-        days.append((msia_deepavali, 'Deepavali'))
+        days.append((msia_deepavali, "Deepavali"))
 
         msia_thaipusam = self.MSIA_THAIPUSAM.get(year)
         if not msia_thaipusam:
-            mtmsg = 'Missing date for Malaysia Thaipusam for year: %s' % year
+            mtmsg = "Missing date for Malaysia Thaipusam for year: %s" % year
             raise KeyError(mtmsg)
-        days.append((msia_thaipusam, 'Thaipusam'))
+        days.append((msia_thaipusam, "Thaipusam"))
         return days

@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 from datetime import date
 
-from ..core import (
-    ChineseNewYearCalendar, WesternCalendar, ChristianMixin, IslamicMixin
-)
+from ..core import ChineseNewYearCalendar, WesternCalendar, ChristianMixin, IslamicMixin
 from ..registry import iso_register
 
 
-@iso_register('SG')
-class Singapore(WesternCalendar,
-                ChineseNewYearCalendar, ChristianMixin, IslamicMixin):
+@iso_register("SG")
+class Singapore(WesternCalendar, ChineseNewYearCalendar, ChristianMixin, IslamicMixin):
     "Singapore"
     include_good_friday = True
     include_eid_al_fitr = True
@@ -19,10 +15,7 @@ class Singapore(WesternCalendar,
     include_day_of_sacrifice = True
     day_of_sacrifice_label = "Hari Raya Haji"
 
-    FIXED_HOLIDAYS = WesternCalendar.FIXED_HOLIDAYS + (
-        (5, 1, "Labour Day"),
-        (8, 9, "National Day"),
-    )
+    FIXED_HOLIDAYS = WesternCalendar.FIXED_HOLIDAYS + ((5, 1, "Labour Day"), (8, 9, "National Day"))
 
     # Diwali/Deepavali is sometimes celebrated on a different day to India
     # so this can't be put into a HinduMixin
@@ -45,7 +38,9 @@ class Singapore(WesternCalendar,
         2015: date(2015, 11, 10),
         2016: date(2016, 10, 29),
         2017: date(2017, 10, 18),
-        2018: date(2018, 11, 6)  # This might change
+        2018: date(2018, 11, 6),  # This might change
+        2019: date(2019, 10, 27),
+        2020: date(2020, 11, 14),
     }
     chinese_new_year_label = "Chinese Lunar New Year's Day"
     include_chinese_second_day = True
@@ -59,14 +54,12 @@ class Singapore(WesternCalendar,
         days = super(Singapore, self).get_variable_days(year)
 
         # Vesak Day
-        days.append(
-            (ChineseNewYearCalendar.lunar(year, 4, 15), "Vesak Day"),
-        )
+        days.append((ChineseNewYearCalendar.lunar(year, 4, 15), "Vesak Day"))
 
         # Add in Deepavali (hardcoded dates, so no need to shift)
         deepavali = self.DEEPAVALI.get(year)
         if not deepavali:
-            msg = 'Missing date for Singapore Deepavali for year: %s' % year
+            msg = "Missing date for Singapore Deepavali for year: %s" % year
             raise KeyError(msg)
-        days.append((deepavali, 'Deepavali'))
+        days.append((deepavali, "Deepavali"))
         return days
